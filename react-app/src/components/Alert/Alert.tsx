@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import styles from "./Alert.module.css";
 
 interface Props {
   children: ReactNode;
@@ -7,18 +8,11 @@ interface Props {
 
 const Alert = ({ children, onClose }: Props) => {
   return (
-    <div
-      className="alert alert-warning alert-dismissible fade show"
-      role="alert"
-    >
+    <div className={styles.alert}>
       {children}
-      <button
-        type="button"
-        className="btn-close"
-        data-bs-dismiss="alert"
-        aria-label="Close"
+      <button className={styles.btn}
         onClick={onClose}
-      ></button>
+      >x</button>
     </div>
   );
 };

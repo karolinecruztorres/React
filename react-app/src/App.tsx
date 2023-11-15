@@ -1,5 +1,6 @@
-import Alert from "./components/Alert";
-import Button from "./components/Button";
+import Alert from "./components/Alert/Alert";
+import Button from "./components/Button/Button";
+import FavoriteIcon from "./components/FavoriteIcon/FavoriteIcon";
 import { useState } from "react";
 
 function App() {
@@ -16,11 +17,13 @@ function App() {
         />
       )}
       <Button
+        color={"danger"}
         children={"Click Here"}
         onclick={() => {
           setAlertVisible(true);
         }}
       />
+      <FavoriteIcon />
     </div>
   );
 }
