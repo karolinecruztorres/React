@@ -1,9 +1,11 @@
+import React from "react";
+
 interface Props {
   addToList: () => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ onChange, addToList }: Props) => {
+const Input = ({ addToList, onChange }: Props) => {
   return (
     <div className="input-group mb-4">
       <input
