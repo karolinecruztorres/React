@@ -21,7 +21,7 @@ function App() {
   return (
     <Container>
       <Input onChange={handleChange} addToList={handleClick} />
-      <List />
+      <List items={listItems} />
     </Container>
   );
 }

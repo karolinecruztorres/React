@@ -1,66 +1,79 @@
 import { useState } from "react";
 
-const List = () => {
-  const [listItems, setListItems] = useState([
-    { name: "a", checked: false, id: "1" },
-    { name: "b", checked: false, id: "2" },
-    { name: "c", checked: false, id: "3" },
-  ]);
+interface Props {
+  items: string[];
+}
 
-  const check = (parameter: string) => {
-    const changeCheck = listItems.map((item) =>
-      item.id === parameter ? { ...item, checked: true } : { ...item }
-    );
-    setListItems(changeCheck);
+const List = ({ items }: Props) => {
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const handleClick = () => {
+    setIsDisabled(!isDisabled);
+    console.log(isDisabled);
   };
 
   return (
     <>
       <ul className="list-group">
-        {listItems.map((item, index) =>
-          item.checked ? (
-            <li
-              key={index}
-              className="list-group-item border-0 borde
-              r-bottom border-danger"
+        {items.map((item, index) => (
+          <li
+            key={index.toString()}
+            className={
+              isDisabled
+                ? "list-group-item border-0 border-bottom border-danger"
+                : "list-group-item border-danger"
+            }
+          >
+            <input
+              className={
+                isDisabled
+                  ? "form-check-input me-2 border-muted disabled"
+                  : "form-check-input me-2 border-danger"
+              }
+              type="checkbox"
+              value=""
+              id={`checkbox-${index.toString()}`}
+              onClick={handleClick}
+            />
+            <label
+              className={
+                isDisabled
+                  ? "form-check-label stretched-link text-muted"
+                  : "form-check-label stretched-link"
+              }
+              htmlFor={`checkbox-${index.toString()}`}
             >
-              <input
-                className="form-check-input me-2 border-muted"
-                type="checkbox"
-                value=""
-                id={index.toString()}
-                disabled
-              />
-              <label
-                className="form-check-label stretched-link text-muted"
-                htmlFor={index.toString()}
-              >
-                {item.name}
-              </label>
-            </li>
-          ) : (
-            <li key={index} className="list-group-item border-danger">
-              <input
-                className="form-check-input me-1 border-danger"
-                type="checkbox"
-                value=""
-                id={index.toString()}
-                onClick={() => {
-                  check(item.id);
-                }}
-              />
-              <label
-                className="form-check-label stretched-link"
-                htmlFor={index.toString()}
-              >
-                {item.name}
-              </label>
-            </li>
-          )
-        )}
+              {item}
+            </label>
+          </li>
+        ))}
       </ul>
     </>
   );
 };
 
 export default List;
+
+{
+  /* <li className="list-group-item border-0 border-bottom border-danger">
+  <input className="form-check-input me-2 border-muted" type="checkbox" value="" id="firstCheckboxStretched" disabled />
+  <label className="form-check-label stretched-link text-muted" htmlFor="firstCheckboxStretched">{children}</label>
+</li> */
+}
+
+{
+  /* <ul class="list-group">
+  <li class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+    <label class="form-check-label" for="firstCheckbox">First checkbox</label>
+  </li>
+  <li class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+    <label class="form-check-label" for="secondCheckbox">Second checkbox</label>
+  </li>
+  <li class="list-group-item">
+    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+    <label class="form-check-label" for="thirdCheckbox">Third checkbox</label>
+  </li>
+</ul> */
+}
