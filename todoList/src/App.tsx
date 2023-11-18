@@ -4,24 +4,39 @@ import Input from "./components/Input";
 import List from "./components/List";
 import { useState } from "react";
 
+interface TodoItem {
+  name: string;
+  checked: boolean;
+  id: number;
+}
+
 function App() {
   const [inputValue, setInputValue] = useState("");
-  let [listItems, setListItems] = useState<string[]>([]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const [listItems, setListItems] = useState<TodoItem[]>([]);
+
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
-  const handleClick = () => {
-    listItems = [...listItems, inputValue];
-    setListItems(listItems);
-    console.log(listItems);
+  const handleOnClick = () => {
+    const newTodo = { name: inputValue, checked: false, id: Date.now() };
+    const todoItem = [...listItems, newTodo];
+    setListItems(todoItem);
+  };
+  console.log(listItems);
+
+  const check = (parameter: number) => {
+    const changeCheck = listItems.map((item: any) =>
+      item.id === parameter ? { ...item, checked: true } : item
+    );
+    setListItems(changeCheck);
   };
 
   return (
     <Container>
-      <Input onChange={handleChange} addToList={handleClick} />
-      <List items={listItems} />
+      <Input handleOnChange={handleOnChange} handleOnClick={handleOnClick} />
+      <List listItems={listItems} isChecked={check} />
     </Container>
   );
 }

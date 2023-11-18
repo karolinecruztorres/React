@@ -1,65 +1,58 @@
-import { useState } from "react";
+interface ListProps {
+  name: string;
+  checked: boolean;
+  id: number;
+}
 
-const List = () => {
-  const [listItems, setListItems] = useState([
-    { name: "a", checked: false, id: "1" },
-    { name: "b", checked: false, id: "2" },
-    { name: "c", checked: false, id: "3" },
-  ]);
+interface Props {
+  listItems: ListProps[];
+  isChecked: (type: number) => void;
+}
 
-  const check = (parameter: string) => {
-    const changeCheck = listItems.map((item) =>
-      item.id === parameter ? { ...item, checked: true } : { ...item }
-    );
-    setListItems(changeCheck);
-  };
-
+const List = ({ listItems, isChecked }: Props) => {
   return (
-    <>
-      <ul className="list-group">
-        {listItems.map((item, index) =>
-          item.checked ? (
-            <li
-              key={index}
-              className="list-group-item border-0 borde
-              r-bottom border-danger"
+    <ul className="list-group">
+      {listItems.map((item, index) =>
+        item.checked ? (
+          <li
+            key={index.toString()}
+            className="list-group-item border-0 border-bottom border-danger"
+          >
+            <input
+              className="form-check-input me-1 border-muted"
+              type="checkbox"
+              value=""
+              id={index.toString()}
+              disabled
+            />
+            <label
+              className="form-check-label stretched-link text-muted"
+              htmlFor={index.toString()}
             >
-              <input
-                className="form-check-input me-2 border-muted"
-                type="checkbox"
-                value=""
-                id={index.toString()}
-                disabled
-              />
-              <label
-                className="form-check-label stretched-link text-muted"
-                htmlFor={index.toString()}
-              >
-                {item.name}
-              </label>
-            </li>
-          ) : (
-            <li key={index} className="list-group-item border-danger">
-              <input
-                className="form-check-input me-1 border-danger"
-                type="checkbox"
-                value=""
-                id={index.toString()}
-                onClick={() => {
-                  check(item.id);
-                }}
-              />
-              <label
-                className="form-check-label stretched-link"
-                htmlFor={index.toString()}
-              >
-                {item.name}
-              </label>
-            </li>
-          )
-        )}
-      </ul>
-    </>
+              {item.name}
+            </label>
+          </li>
+        ) : (
+          <li key={index.toString()} className="list-group-item border-danger">
+            <input
+              className="form-check-input me-1 border-danger"
+              type="checkbox"
+              value=""
+              id={index.toString()}
+              onClick={() => {
+                isChecked(item.id);
+              }}
+            />
+            <label
+              className="form-check-label stretched-link"
+              htmlFor={index.toString()}
+            >
+              {item.name}
+            </label>
+          </li>
+        )
+      )}
+    </ul>
   );
 };
 

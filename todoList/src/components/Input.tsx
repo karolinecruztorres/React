@@ -1,11 +1,9 @@
-import React from "react";
-
 interface Props {
-  addToList: () => void;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleOnChange: (type: React.ChangeEvent<HTMLInputElement>) => void;
+  handleOnClick: () => void;
 }
 
-const Input = ({ addToList, onChange }: Props) => {
+const Input = ({ handleOnChange, handleOnClick }: Props) => {
   return (
     <div className="input-group mb-4">
       <input
@@ -13,13 +11,13 @@ const Input = ({ addToList, onChange }: Props) => {
         className="form-control border-danger"
         placeholder="Enter a task"
         aria-describedby="button-addon2"
-        onChange={onChange}
+        onChange={handleOnChange}
       />
       <button
         className="btn btn-outline-danger"
         type="button"
         id="button-addon2"
-        onClick={addToList}
+        onClick={handleOnClick}
       >
         Add to List
       </button>
