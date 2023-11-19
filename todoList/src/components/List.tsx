@@ -5,14 +5,15 @@ interface ListProps {
 }
 
 interface Props {
-  listItems: ListProps[];
-  isChecked: (type: number) => void;
+  items: ListProps[];
+  onCheck: (type: number) => void;
 }
 
-const List = ({ listItems, isChecked }: Props) => {
+const List = ({ items, onCheck }: Props) => {
+  console.log(items);
   return (
     <ul className="list-group">
-      {listItems.map((item, index) =>
+      {items.map((item, index) =>
         item.checked ? (
           <li
             key={index.toString()}
@@ -40,7 +41,7 @@ const List = ({ listItems, isChecked }: Props) => {
               value=""
               id={index.toString()}
               onClick={() => {
-                isChecked(item.id);
+                onCheck(item.id);
               }}
             />
             <label

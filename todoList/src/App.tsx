@@ -12,33 +12,36 @@ interface TodoItem {
 
 function App() {
   const [inputValue, setInputValue] = useState("");
-
   const [listItems, setListItems] = useState<TodoItem[]>([]);
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
-  const handleOnClick = () => {
+  const handleAdd = () => {
     const newTodo = { name: inputValue, checked: false, id: Date.now() };
     const todoItem = [...listItems, newTodo];
     setListItems(todoItem);
   };
-  console.log(listItems);
-
-  const check = (parameter: number) => {
+  
+  const check = (id: number) => {
     const changeCheck = listItems.map((item: any) =>
-      item.id === parameter ? { ...item, checked: true } : item
+    item.id === id ? { ...item, checked: true } : item
     );
     setListItems(changeCheck);
   };
 
+  const handleRemove = () => {
+    const remove = listItems.filter((item) => !item.checked);
+    setListItems(remove);
+  }
+
   return (
     <Container>
-      <Input handleOnChange={handleOnChange} handleOnClick={handleOnClick} />
-      <List listItems={listItems} isChecked={check} />
+      <Input onChange={handleOnChange} addOnClick={handleAdd} removeOnClick={handleRemove} />
+      <List items={listItems} onCheck={check} />
     </Container>
   );
-}
+};  
 
 export default App;
