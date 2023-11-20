@@ -13,40 +13,43 @@ const List = ({ items, onCheck }: Props) => {
   console.log(items);
   return (
     <ul className="list-group">
-      {items.map((item, index) =>
+      {items.map((item) =>
         item.checked ? (
           <li
-            key={index.toString()}
+            key={item.id.toString()}
             className="list-group-item border-0 border-bottom border-danger"
           >
             <input
-              className="form-check-input me-1 border-muted"
+              className="form-check-input me-1"
               type="checkbox"
               value=""
-              id={index.toString()}
+              id={item.id.toString()}
               disabled
             />
             <label
-              className="form-check-label stretched-link text-muted"
-              htmlFor={index.toString()}
+              className="form-check-label stretched-link"
+              htmlFor={item.id.toString()}
             >
               {item.name}
             </label>
           </li>
         ) : (
-          <li key={index.toString()} className="list-group-item border-danger">
+          <li
+            key={item.id.toString()}
+            className="list-group-item border-danger"
+          >
             <input
               className="form-check-input me-1 border-danger"
               type="checkbox"
               value=""
-              id={index.toString()}
+              id={item.id.toString()}
               onClick={() => {
                 onCheck(item.id);
               }}
             />
             <label
               className="form-check-label stretched-link"
-              htmlFor={index.toString()}
+              htmlFor={item.id.toString()}
             >
               {item.name}
             </label>

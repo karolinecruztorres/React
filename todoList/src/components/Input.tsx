@@ -1,10 +1,11 @@
 interface Props {
-  onChange: (type: React.ChangeEvent<HTMLInputElement>) => void;
   addOnClick: () => void;
+  onChange: (type: React.ChangeEvent<HTMLInputElement>) => void;
   removeOnClick: () => void;
+  clearInput: string;
 }
 
-const Input = ({ onChange, addOnClick, removeOnClick }: Props) => {
+const Input = ({ addOnClick, onChange, removeOnClick, clearInput }: Props) => {
   return (
     <div className="input-group mb-4">
       <input
@@ -13,6 +14,7 @@ const Input = ({ onChange, addOnClick, removeOnClick }: Props) => {
         placeholder="Enter a task"
         aria-describedby="button-addon2"
         onChange={onChange}
+        value={clearInput}
       />
       <button
         className="btn btn-outline-danger"
@@ -20,7 +22,7 @@ const Input = ({ onChange, addOnClick, removeOnClick }: Props) => {
         id="add"
         onClick={addOnClick}
       >
-        Add to List
+        Add
       </button>
       <button
         className="btn btn-outline-danger"
